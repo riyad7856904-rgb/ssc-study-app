@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SSC পড়ার অ্যাপ — রিডিং রুম</title>
-<meta name="description" content="SSC শিক্ষার্থীদের জন্য রিডিং রুম, পাঠ, MCQ অনুশীলন ও অধ্যায়ভিত্তিক পরীক্ষা। মানবিক বিভাগ: পৌরনীতি ও নাগরিকতা (সব ১০টি অধ্যায়), বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা (সব ১৩টি অধ্যায়), ভূগোল ও পরিবেশ (সব ১৫টি অধ্যায়)।">
+<meta name="description" content="SSC শিক্ষার্থীদের জন্য রিডিং রুম, পাঠ, MCQ অনুশীলন ও অধ্যায়ভিত্তিক পরীক্ষা। মানবিক বিভাগ: পৌরনীতি ও নাগরিকতা (সব ১০টি অধ্যায়), বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা (সব ১৩টি অধ্যায়), ভূগোল ও পরিবেশ (সব ১৫টি অধ্যায়)। সাধারণ বিষয়: বাংলা ২য় পত্র (সব ৪৯টি পরিচ্ছেদ), ইসলাম শিক্ষা (সব ৯১টি পাঠ, ৫টি অধ্যায়)।">
 <meta name="theme-color" content="#1b7a43">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
@@ -213,15 +213,15 @@ nav.bottom button.sel{color:var(--green-d);}
   <section class="screen" id="scr-books">
     <div class="card">
       <h2>বিভাগ</h2>
-      <button class="list-btn" id="btnGroup"><span class="ico">🎓</span><span>মানবিক<span class="sub">এসএসসি (নবম–দশম শ্রেণি)</span></span><span class="arr">›</span></button>
-      <div class="mut">মানবিক বিভাগের বিষয়গুলো একে একে যোগ হচ্ছে — আপাতত পৌরনীতি (সব ১০টি অধ্যায়), ইতিহাস (সব ১৩টি অধ্যায়) ও ভূগোল ও পরিবেশ (সব ১৫টি অধ্যায়) দেওয়া আছে।</div>
+      <button class="list-btn" id="btnGroup"><span class="ico">🎓</span><span>মানবিক ও সাধারণ<span class="sub">এসএসসি (নবম–দশম শ্রেণি)</span></span><span class="arr">›</span></button>
+      <div class="mut">মানবিক বিভাগের পৌরনীতি (সব ১০টি অধ্যায়), ইতিহাস (সব ১৩টি অধ্যায়) ও ভূগোল ও পরিবেশ (সব ১৫টি অধ্যায়) দেওয়া আছে। সাথে সাধারণ বিষয় বাংলা ২য় পত্র (সব ৪৯টি পরিচ্ছেদ) ও ইসলাম শিক্ষা (সব ৯১টি পাঠ) যোগ হয়েছে।</div>
     </div>
     <div class="card hidden" id="subjectCard">
       <h2>বিষয়</h2>
       <div id="subjectList"></div>
     </div>
     <div class="card hidden" id="chapterCard">
-      <h2>অধ্যায়</h2>
+      <h2>অধ্যায় / পাঠ / পরিচ্ছেদ</h2>
       <div id="chapterList"></div>
     </div>
   </section>
@@ -333,7 +333,7 @@ nav.bottom button.sel{color:var(--green-d);}
     </div>
     <div class="card">
       <h2>ℹ️ এই অ্যাপ সম্পর্কে</h2>
-      <p class="mut">SSC পড়ার অ্যাপ। বিষয়বস্তু: NCTB পাঠ্যবই (নবম–দশম শ্রেণি) — পৌরনীতি ও নাগরিকতা (সব ১০টি অধ্যায়), বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা (সব ১৩টি অধ্যায়) এবং ভূগোল ও পরিবেশ (সব ১৫টি অধ্যায়)। সব প্রশ্নই শুধু বইয়ের লেখা থেকে তৈরি ও যাচাই করা।</p>
+      <p class="mut">SSC পড়ার অ্যাপ। বিষয়বস্তু: NCTB পাঠ্যবই (নবম–দশম শ্রেণি) — পৌরনীতি ও নাগরিকতা (সব ১০টি অধ্যায়), বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা (সব ১৩টি অধ্যায়), ভূগোল ও পরিবেশ (সব ১৫টি অধ্যায়), বাংলা ২য় পত্র (সব ৪৯টি পরিচ্ছেদ) এবং ইসলাম শিক্ষা (সব ৯১টি পাঠ, ৫টি অধ্যায়)। সব প্রশ্নই শুধু বইয়ের লেখা থেকে তৈরি ও যাচাই করা।</p>
     </div>
   </section>
 </main>
@@ -347,6 +347,8 @@ nav.bottom button.sel{color:var(--green-d);}
 <script src="data-pouroniti.js"></script>
 <script src="data-itihas.js"></script>
 <script src="data-bhugol.js"></script>
+<script src="data-bangla2.js"></script>
+<script src="data-islam.js"></script>
 
 
 <script>
@@ -376,10 +378,22 @@ for(let n=1; n<=15; n++){
   const ch = parseJSONObj('data-bhugol-ch'+n);
   if(ch){ ch.key = 'bhugol'+n; ch.examKey = 'ssc_exam_bhugol'+n; BHUGOL_CHAPTERS.push(ch); }
 }
+const BANGLA2_CHAPTERS = [];
+for(let n=1; n<=49; n++){
+  const ch = parseJSONObj('data-bangla2-u'+n);
+  if(ch){ ch.key = 'bangla2'+n; ch.examKey = 'ssc_exam_bangla2'+n; ch.unitLabel = 'পরিচ্ছেদ'; ch.division = 'সকল বিভাগ'; BANGLA2_CHAPTERS.push(ch); }
+}
+const ISLAM_CHAPTERS = [];
+for(let n=1; n<=91; n++){
+  const ch = parseJSONObj('data-islam-u'+n);
+  if(ch){ ch.key = 'islam'+n; ch.examKey = 'ssc_exam_islam'+n; ch.unitLabel = 'পাঠ'; ch.division = 'সকল বিভাগ'; ISLAM_CHAPTERS.push(ch); }
+}
 const SUBJECTS = [
   { name:'পৌরনীতি ও নাগরিকতা', icon:'🏛️', chapters:POURONITI_CHAPTERS },
   { name:'বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা', icon:'📜', chapters:ITIHAS_CHAPTERS },
-  { name:'ভূগোল ও পরিবেশ', icon:'🌍', chapters:BHUGOL_CHAPTERS }
+  { name:'ভূগোল ও পরিবেশ', icon:'🌍', chapters:BHUGOL_CHAPTERS },
+  { name:'বাংলা ২য় পত্র', icon:'✍️', chapters:BANGLA2_CHAPTERS, countText:'৪৯টি পরিচ্ছেদ' },
+  { name:'ইসলাম শিক্ষা', icon:'🕌', chapters:ISLAM_CHAPTERS, countText:'৯১টি পাঠ • ৫টি অধ্যায়' }
 ];
 const ALL_CHAPTERS = SUBJECTS.reduce((a,s) => a.concat(s.chapters), []);
 let curChap = CIVICS_CH1, curSubj = 0;
@@ -409,8 +423,8 @@ function show(name){
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
   $('scr-'+name).classList.add('on');
   let t = TITLES[name] || TITLES.room;
-  if(name==='chapter') t = ['অধ্যায় '+bn(curChap.chapter)+': '+curChap.chapterName, curChap.subject+' • মানবিক বিভাগ'];
-  if(name==='result') t = ['🏆 পরীক্ষার ফলাফল', 'অধ্যায় '+bn(curChap.chapter)+': '+curChap.chapterName+' • '+curChap.subject];
+  if(name==='chapter') t = [unitTitle(curChap), curChap.subject+' • '+(curChap.division || 'মানবিক')+' বিভাগ'];
+  if(name==='result') t = ['🏆 পরীক্ষার ফলাফল', unitTitle(curChap)+' • '+curChap.subject];
   $('hdrTitle').textContent = t[0]; $('hdrSub').textContent = t[1];
   const navName = (name==='chapter'||name==='exam'||name==='result') ? 'books' : name;
   document.querySelectorAll('nav.bottom button').forEach(b => b.classList.toggle('sel', b.dataset.nav===navName));
@@ -488,6 +502,11 @@ $('btnFinishSess').addEventListener('click', () => finishSession(false));
 $('btnCancelSess').addEventListener('click', () => { if(confirm('সেশন বাতিল করবে? এই সেশনের সময় যোগ হবে না।')) endSessionUI(); });
 
 /* ============ বই → বিষয় → অধ্যায় ============ */
+function unitTitle(ch){
+  const label = ch.unitLabel || 'অধ্যায়';
+  const num = ch.unitLabel ? (ch.path != null ? ch.path : ch.chapter) : ch.chapter;
+  return label+' '+bn(num)+': '+ch.chapterName;
+}
 function sectionLabels(ch){
   const L = [];
   if(ch.reading && ch.reading.length) L.push('পাঠ');
@@ -502,19 +521,19 @@ function sectionLabels(ch){
 }
 function renderSubjects(){
   $('subjectList').innerHTML = SUBJECTS.map((s,i) =>
-    '<button class="list-btn" data-subj="'+i+'"><span class="ico">'+s.icon+'</span><span>'+esc(s.name)+'<span class="sub">জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) • '+bn(s.chapters.length)+'টি অধ্যায়</span></span><span class="arr">›</span></button>').join('');
+    '<button class="list-btn" data-subj="'+i+'"><span class="ico">'+s.icon+'</span><span>'+esc(s.name)+'<span class="sub">জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) • '+(s.countText || bn(s.chapters.length)+'টি অধ্যায়')+'</span></span><span class="arr">›</span></button>').join('');
 }
 function renderChapters(){
   const s = SUBJECTS[curSubj];
   $('chapterList').innerHTML = s.chapters.map((ch,i) =>
-    '<button class="list-btn" data-chap="'+i+'"><span class="ico">📖</span><span>অধ্যায় '+bn(ch.chapter)+': '+esc(ch.chapterName)+'<span class="sub">'+sectionLabels(ch).join(' • ')+'</span></span><span class="arr">›</span></button><div id="chScore-'+ch.key+'"></div>').join('');
+    '<button class="list-btn" data-chap="'+i+'"><span class="ico">📖</span><span>'+esc(unitTitle(ch))+'<span class="sub">'+(ch.group ? esc(ch.group)+' • ' : '')+sectionLabels(ch).join(' • ')+'</span></span><span class="arr">›</span></button><div id="chScore-'+ch.key+'"></div>').join('');
   refreshChapterScores();
 }
 function openChapter(ch){
   curChap = ch; curSet = 0; qIdx = 0; pracAns = {};
-  $('chTitle').textContent = 'অধ্যায় '+bn(ch.chapter)+': '+ch.chapterName;
-  $('chMeta').textContent = 'বিষয়: '+ch.subject+' • বিভাগ: মানবিক • উৎস: NCTB পাঠ্যবই';
-  $('btnExam').textContent = '📝 অধ্যায়ভিত্তিক পরীক্ষা দাও ('+bn(Math.min(EXAM_N, curMCQS().length))+' প্রশ্ন)';
+  $('chTitle').textContent = unitTitle(ch);
+  $('chMeta').textContent = 'বিষয়: '+ch.subject+' • বিভাগ: '+(ch.division || 'মানবিক')+' • উৎস: NCTB পাঠ্যবই'+(ch.group ? ' • '+ch.group : '');
+  $('btnExam').textContent = '📝 '+(ch.unitLabel || 'অধ্যায়')+'ভিত্তিক পরীক্ষা দাও ('+bn(Math.min(EXAM_N, curMCQS().length))+' প্রশ্ন)';
   renderTabs(); renderReading(); renderGuide(); renderSetChips(); renderPrac();
   renderQA('knowList', ch.gyanmulak); renderQA('shortList', ch.songkhipto); renderQA('onudList', ch.onudhabon);
   renderCQ(); updateScoreLines();
