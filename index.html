@@ -75,6 +75,16 @@ main{flex:1; padding:16px 14px calc(var(--nav-h) + 26px);}
 .list-btn .arr{margin-left:auto; color:var(--green); font-size:20px;}
 .list-btn .sub{display:block; font-size:13px; font-weight:400; color:var(--mut); margin-top:2px;}
 .list-btn .ico{font-size:24px;}
+.avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;background:#e8eef5;border:2px solid #d5e2ef}
+.avatar-sm{width:34px;height:34px;border-radius:50%;object-fit:cover;background:#e8eef5;vertical-align:middle}
+.lb-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid #eef2f6}
+.lb-row:last-child{border-bottom:none}
+.lb-row .rk{font-weight:700;min-width:30px}
+.lb-row .nm{flex:1;font-size:15.5px}
+.lb-row .mn{font-weight:700;color:#1c6e43}
+.lb-row.me{background:#fdf6e0;border-radius:10px}
+.now-chip{display:inline-flex;align-items:center;gap:7px;background:#eafaf0;border:1px solid #bfe8cf;border-radius:999px;padding:4px 12px 4px 5px;margin:0 6px 8px 0;font-size:14.5px}
+.gbtn{display:flex;align-items:center;gap:10px;justify-content:center;background:#fff;color:#20303f;border:1.5px solid #cfd9e2;border-radius:12px;padding:11px 16px;font-size:16px;font-weight:600;cursor:pointer;width:100%}
 .src-tag{font-size:12.5px;color:#8a6d1a;background:#fdf3d7;border:1px solid #ecd9a0;border-radius:999px;display:inline-block;padding:1px 9px;margin-top:8px}
 .score-chip{display:inline-block; background:var(--green-l); color:var(--green-d); border-radius:999px;
   padding:3px 11px; font-size:13px; font-weight:700; margin:2px 4px 2px 0;}
@@ -329,6 +339,30 @@ nav.bottom button.sel{color:var(--green-d);}
 
   <!-- প্রোফাইল -->
   <section class="screen" id="scr-profile">
+    <div class="card" id="acctCard">
+      <h2>🔐 অ্যাকাউন্ট</h2>
+      <div id="acctOut">
+        <p class="mut" style="margin-top:0">Gmail দিয়ে লগইন করলে তোমার পড়ার সময় লিডারবোর্ডে যাবে, প্রোফাইল ছবি দিতে পারবে, আর কোন ডিভাইস থেকেই তোমার হিসাব পাওয়া যাবে।</p>
+        <button class="gbtn" id="btnGoogleIn"><span style="font-size:19px">G</span> Gmail দিয়ে লগইন করো</button>
+        <p class="mut hidden" id="acctNote" style="margin-bottom:0"></p>
+      </div>
+      <div id="acctIn" class="hidden">
+        <div style="display:flex;align-items:center;gap:14px">
+          <img class="avatar" id="pfAvatar" alt="প্রোফাইল ছবি">
+          <div style="flex:1;min-width:0">
+            <div id="pfAcctName" style="font-weight:700;font-size:17.5px"></div>
+            <div class="mut" id="pfAcctEmail" style="font-size:13.5px;word-break:break-all"></div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" id="pfPhotoBtn">📷 প্রোফাইল ছবি বদলাও</button>
+          <button class="btn" id="btnGoogleOut" style="background:#7a8894">লগআউট</button>
+        </div>
+        <input type="file" id="pfPhotoFile" accept="image/*" class="hidden">
+        <p class="mut" style="margin-bottom:0">ছবি দিলে সেটা লিডারবোর্ডেও দেখা যাবে।</p>
+      </div>
+    </div>
     <div class="card">
       <h2>👤 প্রোফাইল</h2>
       <label class="mut" for="inpName">তোমার নাম</label>
@@ -345,8 +379,17 @@ nav.bottom button.sel{color:var(--green-d);}
       </div>
     </div>
     <div class="card">
+      <h2>🏆 লিডারবোর্ড — কে কতক্ষণ পড়েছে</h2>
+      <div id="lbList"><p class="mut" style="margin:0">লগইন চালু হলে এখানে সবার পড়ার হিসাব দেখা যাবে।</p></div>
+      <p class="mut" id="lbMe" style="margin-bottom:0"></p>
+    </div>
+    <div class="card">
+      <h2>🟢 এখন কে কে পড়ছে</h2>
+      <div id="nowList"><p class="mut" style="margin:0">এই মুহূর্তে কেউ পড়ছে না।</p></div>
+    </div>
+    <div class="card">
       <h2>⚙️ সেটিংস</h2>
-      <p class="mut">সব তথ্য তোমার ফোনেই সংরক্ষিত থাকে (localStorage)। নিচের বোতামে চাপ দিলে পড়ার হিসাব, পরীক্ষার ফল ও নাম — সব মুছে যাবে।</p>
+      <p class="mut">লগইন না থাকলে সব তথ্য তোমার ফোনেই সংরক্ষিত থাকে (localStorage)। নিচের বোতামে চাপ দিলে এই ফোনের পড়ার হিসাব, পরীক্ষার ফল ও নাম মুছে যাবে (লগইন করা থাকলে ক্লাউডের লিডারবোর্ড-হিসাব থেকে যাবে)।</p>
       <button class="btn danger" id="btnWipe">🗑️ সব তথ্য মুছে ফেলো</button>
     </div>
     <div class="card">
@@ -364,6 +407,10 @@ nav.bottom button.sel{color:var(--green-d);}
 
 <script src="data-pouroniti.js"></script>
 <script src="data-board-pouroniti.js"></script>
+<script src="firebase-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="data-itihas.js"></script>
 <script src="data-bhugol.js"></script>
 <script src="data-bangla2.js"></script>
@@ -468,7 +515,7 @@ const TITLES = { room:['📚 রিডিং রুম','প্রতিদি�
   chapter:['অধ্যায় ১: পৌরনীতি ও নাগরিকতা','পৌরনীতি ও নাগরিকতা • মানবিক বিভাগ'],
   exam:['📝 অধ্যায়ভিত্তিক পরীক্ষা','৩০টি প্রশ্ন • সময় ৩০ মিনিট • মাঝে উত্তর দেখা যাবে না'],
   result:['🏆 পরীক্ষার ফলাফল','অধ্যায় ১: পৌরনীতি ও নাগরিকতা'],
-  profile:['👤 প্রোফাইল ও সেটিংস','তোমার তথ্য তোমার ফোনেই থাকে'] };
+  profile:['👤 প্রোফাইল ও সেটিংস','লগইন, লিডারবোর্ড ও তোমার অগ্রগতি'] };
 function show(name){
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
   $('scr-'+name).classList.add('on');
@@ -545,6 +592,7 @@ function finishSession(auto){
   if(doneMin <= 0){ alert('কমপক্ষে ১ মিনিট পড়লে তবেই হিসাব যোগ হবে।'); return; }
   const d = dayRec(); d.mins += doneMin; d.sessions.push({ mins: doneMin, at: fmtNow() });
   room.totalMins += doneMin; room.totalSessions += 1; save('ssc_room_v1', room); renderRoom();
+  if(window.cloudSync) window.cloudSync();
   alert('🎉 সাব্বাশ! '+bn(doneMin)+' মিনিটের সেশন শেষ। আজ মোট পড়েছ '+bn(d.mins)+' মিনিট।');
 }
 $('btnStart').addEventListener('click', startSession);
@@ -880,13 +928,132 @@ $('resAgain').addEventListener('click', startExam);
 /* ============ প্রোফাইল ============ */
 let profile = load('ssc_profile', { name:'' });
 $('inpName').value = profile.name || '';
-$('btnSaveName').addEventListener('click', () => { profile.name = $('inpName').value.trim(); save('ssc_profile', profile); alert('✅ নাম সংরক্ষণ হয়েছে।'); });
+$('btnSaveName').addEventListener('click', () => { profile.name = $('inpName').value.trim(); save('ssc_profile', profile); renderAcctName(); if(window.cloudSync) window.cloudSync(); alert('✅ নাম সংরক্ষণ হয়েছে।'); });
 $('btnWipe').addEventListener('click', () => {
   if(!confirm('সত্যিই সব তথ্য মুছে ফেলবে? পড়ার হিসাব ও পরীক্ষার ফল সব চলে যাবে।')) return;
   ['ssc_room_v1','ssc_profile'].concat(ALL_CHAPTERS.map(ch => ch.examKey)).forEach(k => { try{ localStorage.removeItem(k); }catch(e){} });
   room = { days:{}, totalMins:0, totalSessions:0 }; profile = { name:'' }; $('inpName').value = '';
   renderRoom(); updateScoreLines(); alert('সব তথ্য মুছে ফেলা হয়েছে।');
 });
+
+
+/* ============ অ্যাকাউন্ট: Gmail লগইন, লিডারবোর্ড, উপস্থিতি (Firebase) ============ */
+let fbUser = null, fbDb = null, remoteTotal = 0, hbTimer = null;
+const FB_CFG = window.__FB_CONFIG__ || {};
+const FB_OK = !!(window.firebase && FB_CFG.apiKey && FB_CFG.apiKey !== 'PASTE_HERE' && FB_CFG.projectId && FB_CFG.projectId !== 'PASTE_HERE');
+function displayName(){ return (profile.name || '').trim() || (fbUser && fbUser.displayName) || 'শিক্ষার্থী'; }
+function weekMins(){ let s = 0; const now = Date.now(); Object.keys(room.days || {}).forEach(k => { const dt = new Date(k + 'T00:00:00'); if(now - dt.getTime() < 7*24*3600*1000) s += (room.days[k].mins || 0); }); return s; }
+function fmtMins(m){ m = Math.round(m || 0); if(m < 60) return bn(m) + ' মিনিট'; const hh = Math.floor(m/60), mm = m % 60; return bn(hh) + ' ঘণ্টা' + (mm ? ' ' + bn(mm) + ' মিনিট' : ''); }
+function avatarHTML(u, cls){ if(u.photo) return '<img class="' + cls + '" src="' + u.photo + '" alt="">'; return '<span class="' + cls + '" style="display:inline-flex;align-items:center;justify-content:center;font-weight:700;color:#456">' + esc((u.name || 'শ').slice(0,1)) + '</span>'; }
+function renderAcctName(){ if(fbUser) $('pfAcctName').textContent = displayName(); }
+function renderAvatar(){ const src = profile.photo || (fbUser && fbUser.photoURL) || ''; const img = $('pfAvatar'); if(src){ img.src = src; img.style.display = ''; } else { img.removeAttribute('src'); img.style.display = 'none'; } }
+function cloudSync(){
+  if(!FB_OK || !fbUser || !fbDb) return;
+  const total = Math.max(room.totalMins || 0, remoteTotal || 0);
+  fbDb.collection('users').doc(fbUser.uid).set({
+    name: displayName(),
+    photo: profile.photo || fbUser.photoURL || '',
+    totalMins: total,
+    weekMins: weekMins(),
+    studying: !!sess,
+    lastActive: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true }).catch(() => {});
+}
+window.cloudSync = cloudSync;
+function startPresence(){
+  if(hbTimer) clearInterval(hbTimer);
+  hbTimer = setInterval(() => { if(!document.hidden) cloudSync(); }, 60000);
+}
+function renderLb(users){
+  const el = $('lbList'); if(!el) return;
+  if(!users.length){ el.innerHTML = '<p class="mut" style="margin:0">এখনো কেউ লিডারবোর্ডে নেই — প্রথম হওয়ার সুযোগ তোমারই!</p>'; $('lbMe').textContent = ''; return; }
+  el.innerHTML = users.map((u, i) =>
+    '<div class="lb-row' + (fbUser && u.id === fbUser.uid ? ' me' : '') + '"><span class="rk">' + (i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : bn(i + 1) + '.') + '</span>' + avatarHTML(u, 'avatar-sm') + '<span class="nm">' + esc(u.name || 'শিক্ষার্থী') + (fbUser && u.id === fbUser.uid ? ' (তুমি)' : '') + '</span><span class="mn">' + fmtMins(u.totalMins) + '</span></div>').join('');
+  if(fbUser){ const idx = users.findIndex(u => u.id === fbUser.uid); $('lbMe').textContent = idx >= 0 ? 'তোমার অবস্থান: ' + bn(idx + 1) + ' নম্বরে • মোট ' + fmtMins(users[idx].totalMins) + ' পড়েছ' : ''; }
+}
+function renderNow(users){
+  const el = $('nowList'); if(!el) return;
+  const nowMs = Date.now();
+  const live = users.filter(u => u.studying && u.lastActive && (nowMs - u.lastActive) < 3*60*1000);
+  if(!live.length){ el.innerHTML = '<p class="mut" style="margin:0">এই মুহূর্তে কেউ পড়ছে না।</p>'; return; }
+  el.innerHTML = live.map(u => '<span class="now-chip">' + avatarHTML(u, 'avatar-sm') + esc(u.name || 'শিক্ষার্থী') + (fbUser && u.id === fbUser.uid ? ' (তুমি)' : '') + '</span>').join('');
+}
+function initCloud(){
+  if(!FB_OK){
+    const n = $('acctNote'); if(n){ n.textContent = '⚠️ লগইন সিস্টেমের সেটআপ এখনো বাকি আছে — চালু হলে এখান থেকে Gmail দিয়ে লগইন করা যাবে।'; n.classList.remove('hidden'); }
+    return;
+  }
+  try{
+    firebase.initializeApp(FB_CFG);
+    fbDb = firebase.firestore();
+    firebase.auth().onAuthStateChanged(user => {
+      fbUser = user || null;
+      $('acctOut').classList.toggle('hidden', !!user);
+      $('acctIn').classList.toggle('hidden', !user);
+      if(user){
+        $('pfAcctEmail').textContent = user.email || '';
+        renderAcctName(); renderAvatar();
+        const ref = fbDb.collection('users').doc(user.uid);
+        ref.get().then(snap => {
+          if(snap.exists){
+            const d = snap.data() || {};
+            remoteTotal = d.totalMins || 0;
+            if(d.photo && !profile.photo){ profile.photo = d.photo; save('ssc_profile', profile); renderAvatar(); }
+            if(remoteTotal > (room.totalMins || 0)){ room.totalMins = remoteTotal; save('ssc_room_v1', room); renderRoom(); }
+          }
+          cloudSync(); startPresence();
+        }).catch(() => { cloudSync(); startPresence(); });
+      } else {
+        if(hbTimer) clearInterval(hbTimer);
+      }
+    });
+    fbDb.collection('users').orderBy('totalMins', 'desc').limit(50).onSnapshot(snap => {
+      const users = []; snap.forEach(doc => { const d = doc.data() || {}; users.push({ id: doc.id, name: d.name, photo: d.photo, totalMins: d.totalMins || 0, studying: !!d.studying, lastActive: d.lastActive && d.lastActive.toMillis ? d.lastActive.toMillis() : 0 }); });
+      const mine = fbUser ? users.find(u => u.id === fbUser.uid) : null;
+      if(mine) remoteTotal = Math.max(remoteTotal, mine.totalMins || 0);
+      renderLb(users); renderNow(users);
+    }, () => {});
+  }catch(e){ /* ক্লাউড চালু না হলেও অ্যাপের বাকি সব চলবে */ }
+}
+$('btnGoogleIn').addEventListener('click', () => {
+  if(!FB_OK){ alert('লগইন সিস্টেমের সেটআপ এখনো বাকি আছে।'); return; }
+  const prov = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(prov).catch(err => {
+    if(err && (err.code === 'auth/popup-blocked' || err.code === 'auth/cancelled-popup-request' || err.code === 'auth/operation-not-supported-in-this-environment')){
+      firebase.auth().signInWithRedirect(prov);
+    } else if(err && err.code !== 'auth/popup-closed-by-user'){
+      alert('লগইন করা যায়নি: ' + (err.message || err.code || 'অজানা সমস্যা'));
+    }
+  });
+});
+$('btnGoogleOut').addEventListener('click', () => {
+  if(!FB_OK || !fbUser) return;
+  const ref = fbDb.collection('users').doc(fbUser.uid);
+  ref.set({ studying: false, lastActive: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true }).catch(() => {}).finally(() => { firebase.auth().signOut(); });
+});
+$('pfPhotoBtn').addEventListener('click', () => $('pfPhotoFile').click());
+$('pfPhotoFile').addEventListener('change', e => {
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  const img = new Image();
+  img.onload = () => {
+    const c = document.createElement('canvas'); const S = 128;
+    c.width = S; c.height = S;
+    const ctx = c.getContext('2d');
+    const m = Math.min(img.width, img.height);
+    ctx.drawImage(img, (img.width - m)/2, (img.height - m)/2, m, m, 0, 0, S, S);
+    profile.photo = c.toDataURL('image/jpeg', 0.85);
+    save('ssc_profile', profile); renderAvatar(); cloudSync();
+    URL.revokeObjectURL(img.src);
+    alert('✅ প্রোফাইল ছবি সেট হয়েছে।');
+  };
+  img.src = URL.createObjectURL(f);
+});
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden && FB_OK && fbUser && fbDb){
+    fbDb.collection('users').doc(fbUser.uid).set({ studying: false, lastActive: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true }).catch(() => {});
+  } else if(!document.hidden){ cloudSync(); }
+});
+initCloud();
 
 /* ============ ইনস্টল টিপ ও অফলাইন ============ */
 (function(){
