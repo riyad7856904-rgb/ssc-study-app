@@ -75,6 +75,7 @@ main{flex:1; padding:16px 14px calc(var(--nav-h) + 26px);}
 .list-btn .arr{margin-left:auto; color:var(--green); font-size:20px;}
 .list-btn .sub{display:block; font-size:13px; font-weight:400; color:var(--mut); margin-top:2px;}
 .list-btn .ico{font-size:24px;}
+.src-tag{font-size:12.5px;color:#8a6d1a;background:#fdf3d7;border:1px solid #ecd9a0;border-radius:999px;display:inline-block;padding:1px 9px;margin-top:8px}
 .score-chip{display:inline-block; background:var(--green-l); color:var(--green-d); border-radius:999px;
   padding:3px 11px; font-size:13px; font-weight:700; margin:2px 4px 2px 0;}
 .tabs{display:flex; gap:8px; margin-bottom:14px;}
@@ -258,6 +259,23 @@ nav.bottom button.sel{color:var(--green-d);}
         <button class="btn" id="mcqAgain">আবার অনুশীলন করো</button>
       </div>
     </div>
+    <div id="tab-board" class="hidden tab-panel">
+      <div class="card">
+        <h3>🎯 বোর্ড MCQ — বিগত বোর্ড পরীক্ষার প্রশ্ন (২০২০–২০২৬)</h3>
+        <div class="chips" id="boardSetChips"></div>
+        <div class="mut" id="boardInfo"></div>
+      </div>
+      <div class="card">
+        <div class="qmeta"><span class="score-chip" id="boardProg">উত্তর দিয়েছ ০/২০</span><span class="score-chip" id="boardScore">স্কোর: ০</span></div>
+        <div class="mut">প্রতিটি প্রশ্নের নিচে কোন বোর্ডের কোন সালের প্রশ্ন তা দেওয়া আছে। উত্তরে চাপ দিলেই সাথে সাথে সঠিক/ভুল দেখতে পাবে।</div>
+      </div>
+      <div id="boardList"></div>
+      <div class="card hidden" id="boardDone">
+        <h2>🎉 সেট শেষ!</h2>
+        <p id="boardDoneTxt" style="font-size:17px"></p>
+        <button class="btn" id="boardAgain">আবার অনুশীলন করো</button>
+      </div>
+    </div>
     <div id="tab-short" class="hidden tab-panel">
       <div class="card" style="padding:12px 14px"><div class="mut">প্রশ্নে চাপ দিলে উত্তর দেখা যাবে। সংক্ষিপ্ত উত্তর নিজের ভাষায় লেখার অনুশীলন করো।</div></div>
       <div id="shortList"></div>
@@ -345,6 +363,7 @@ nav.bottom button.sel{color:var(--green-d);}
 </div>
 
 <script src="data-pouroniti.js"></script>
+<script src="data-board-pouroniti.js"></script>
 <script src="data-itihas.js"></script>
 <script src="data-bhugol.js"></script>
 <script src="data-bangla2.js"></script>
@@ -377,6 +396,9 @@ for(let n=2; n<=10; n++){
   const ch = parseJSONObj('data-pouroniti-ch'+n);
   if(ch){ ch.key = 'pouroniti'+n; ch.examKey = 'ssc_exam_pouroniti'+n; POURONITI_CHAPTERS.push(ch); }
 }
+/* বোর্ড MCQ (পৌরনীতি): অধ্যায় নম্বর অনুযায়ী chapter অবজেক্টে জুড়ে দাও */
+const BOARD_POURONITI = (window.__BOARD__ || {})['pouroniti'] || {};
+POURONITI_CHAPTERS.forEach(ch => { const b = BOARD_POURONITI[String(ch.chapter)]; if(b && b.length) ch.boardMcq = b; });
 const BHUGOL_CHAPTERS = [];
 for(let n=1; n<=15; n++){
   const ch = parseJSONObj('data-bhugol-ch'+n);
@@ -413,7 +435,7 @@ for(let n=1; n<=7; n++){
   if(ch){ ch.key = 'krishi'+n; ch.examKey = 'ssc_exam_krishi'+n; ch.division = 'সকল বিভাগ'; KRISHI_CHAPTERS.push(ch); }
 }
 const SUBJECTS = [
-  { name:'পৌরনীতি ও নাগরিকতা', icon:'🏛️', chapters:POURONITI_CHAPTERS },
+  { name:'পৌরনীতি ও নাগরিকতা', icon:'🏛️', chapters:POURONITI_CHAPTERS, countText:'১০টি অধ্যায় • 🎯 বোর্ড MCQ ৪৬১টি (২০২০–২০২৬)' },
   { name:'বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা', icon:'📜', chapters:ITIHAS_CHAPTERS },
   { name:'ভূগোল ও পরিবেশ', icon:'🌍', chapters:BHUGOL_CHAPTERS },
   { name:'বাংলা ১ম পত্র (সাহিত্য)', icon:'📖', chapters:BANGLA1_CHAPTERS, countText:'৩২টি পাঠ্য • গদ্য ১৫ + পদ্য ১৫ + সহপাঠ ২' },
@@ -540,6 +562,7 @@ function sectionLabels(ch){
   if(ch.reading && ch.reading.length) L.push('পাঠ');
   if(ch.guide) L.push('CQ গাইড');
   if(ch.mcq && ch.mcq.length) L.push('MCQ অনুশীলন');
+  if(ch.boardMcq && ch.boardMcq.length) L.push('বোর্ড MCQ');
   if(ch.songkhipto && ch.songkhipto.length) L.push('সংক্ষিপ্ত');
   if(ch.gyanmulak && ch.gyanmulak.length) L.push('জ্ঞানমূলক');
   if(ch.onudhabon && ch.onudhabon.length) L.push('অনুধাবনমূলক');
@@ -558,11 +581,11 @@ function renderChapters(){
   refreshChapterScores();
 }
 function openChapter(ch){
-  curChap = ch; curSet = 0; qIdx = 0; pracAns = {};
+  curChap = ch; curSet = 0; qIdx = 0; pracAns = {}; bSet = 0; bAns = {};
   $('chTitle').textContent = unitTitle(ch);
   $('chMeta').textContent = 'বিষয়: '+ch.subject+' • বিভাগ: '+(ch.division || 'মানবিক')+' • উৎস: NCTB পাঠ্যবই'+(ch.group ? ' • '+ch.group : '');
   $('btnExam').textContent = '📝 '+(ch.unitLabel || 'অধ্যায়')+'ভিত্তিক পরীক্ষা দাও ('+bn(Math.min(EXAM_N, curMCQS().length))+' প্রশ্ন)';
-  renderTabs(); renderReading(); renderGuide(); renderSetChips(); renderPrac();
+  renderTabs(); renderReading(); renderGuide(); renderSetChips(); renderPrac(); renderBoardAll();
   renderQA('knowList', ch.gyanmulak); renderQA('shortList', ch.songkhipto); renderQA('onudList', ch.onudhabon);
   renderCQ(); updateScoreLines();
   show('chapter');
@@ -577,6 +600,7 @@ const TAB_DEFS = [
   { k:'read',  label:'📖 পাঠ',        has: ch => !!(ch.reading && ch.reading.length) },
   { k:'guide', label:'🧭 CQ গাইড',    has: ch => !!ch.guide },
   { k:'mcq',   label:'❓ MCQ',         has: ch => !!(ch.mcq && ch.mcq.length) },
+  { k:'board', label:'🎯 বোর্ড MCQ',   has: ch => !!(ch.boardMcq && ch.boardMcq.length) },
   { k:'short', label:'✏️ সংক্ষিপ্ত',   has: ch => !!(ch.songkhipto && ch.songkhipto.length) },
   { k:'know',  label:'💡 জ্ঞানমূলক',  has: ch => !!(ch.gyanmulak && ch.gyanmulak.length) },
   { k:'onud',  label:'🔍 অনুধাবনমূলক', has: ch => !!(ch.onudhabon && ch.onudhabon.length) },
@@ -705,6 +729,66 @@ $('mcqList').addEventListener('click', e => {
   }
 });
 $('mcqAgain').addEventListener('click', () => { qIdx = 0; pracAns = {}; renderPrac(); window.scrollTo(0,0); });
+
+/* ============ বোর্ড MCQ অনুশীলন ============ */
+let bSet = 0, bAns = {};
+function boardQS(){ return curChap.boardMcq || []; }
+function nBSets(){ return Math.ceil(boardQS().length / SET_SIZE); }
+function bSetQuestions(){ return boardQS().slice(bSet*SET_SIZE, (bSet+1)*SET_SIZE); }
+function bScore(){ let s=0; bSetQuestions().forEach((q,i)=>{ if(bAns[i]===q.a) s++; }); return s; }
+function renderBoardAll(){
+  const el = $('tab-board'); if(!el) return;
+  let h = ''; const total = boardQS().length;
+  for(let i=0;i<nBSets();i++){ const from=i*SET_SIZE+1, to=Math.min(total,(i+1)*SET_SIZE);
+    h += '<button class="chip'+(i===bSet?' sel':'')+'" data-bset="'+i+'">সেট '+bn(i+1)+' ('+bn(from)+'–'+bn(to)+')</button>'; }
+  $('boardSetChips').innerHTML = h;
+  $('boardInfo').textContent = 'মোট '+bn(total)+'টি বোর্ড প্রশ্ন, '+bn(nBSets())+'টি সেটে ভাগ করা।';
+  renderBoardPrac();
+}
+function renderBoardHead(){
+  const qs = bSetQuestions();
+  $('boardProg').textContent = 'উত্তর দিয়েছ '+bn(Object.keys(bAns).length)+'/'+bn(qs.length);
+  $('boardScore').textContent = 'স্কোর: '+bn(bScore());
+}
+function bBlockHTML(q, qi){
+  const gi = bSet*SET_SIZE + qi; const my = bAns[qi];
+  let h = '<div class="card" data-bblock="'+qi+'"><p class="qtext">'+bn(gi+1)+'. '+esc(q.q)+'</p>';
+  h += q.o.map((op,i) => {
+    let cls = 'opt';
+    if(my !== undefined){ if(i===q.a) cls += ' right'; else if(i===my) cls += ' wrong'; }
+    return '<button class="'+cls+'" data-bq="'+qi+'" data-i="'+i+'" '+(my!==undefined?'disabled':'')+'><span class="ol">'+OPTL[i]+'</span>'+esc(op)+'</button>';
+  }).join('');
+  if(q.src) h += '<div><span class="src-tag">📌 '+esc(q.src)+'</span></div>';
+  if(my !== undefined){
+    h += '<div class="feedback '+(my===q.a?'ok':'no')+'">'+(my===q.a ? '✅ সঠিক উত্তর!' : '❌ ভুল হয়েছে। সঠিক উত্তর: '+OPTL[q.a]+' '+esc(q.o[q.a]))+'</div>';
+  }
+  return h + '</div>';
+}
+function renderBoardPrac(){
+  renderBoardHead();
+  $('boardList').innerHTML = bSetQuestions().map((q,qi) => bBlockHTML(q,qi)).join('');
+  $('boardDone').classList.add('hidden');
+}
+$('boardSetChips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if(!c) return;
+  bSet = parseInt(c.dataset.bset,10); bAns = {};
+  document.querySelectorAll('#boardSetChips .chip').forEach(x => x.classList.toggle('sel', x===c));
+  renderBoardPrac();
+});
+$('boardList').addEventListener('click', e => {
+  const b = e.target.closest('.opt'); if(!b) return;
+  const qi = parseInt(b.dataset.bq,10); if(bAns[qi] !== undefined) return;
+  bAns[qi] = parseInt(b.dataset.i,10);
+  const qs = bSetQuestions(); const block = $('boardList').querySelector('[data-bblock="'+qi+'"]');
+  if(block) block.outerHTML = bBlockHTML(qs[qi], qi);
+  renderBoardHead();
+  if(Object.keys(bAns).length === qs.length && qs.length){
+    $('boardDone').classList.remove('hidden');
+    $('boardDoneTxt').innerHTML = 'এই সেটে তোমার স্কোর: <b>'+bn(bScore())+' / '+bn(qs.length)+'</b><br><span class="mut">ভুলগুলো পাঠ ট্যাব থেকে আবার পড়ে নাও!</span>';
+    $('boardDone').scrollIntoView({behavior:'smooth', block:'center'});
+  }
+});
+$('boardAgain').addEventListener('click', () => { bAns = {}; renderBoardPrac(); window.scrollTo(0,0); });
 </script>
 
 <script>
