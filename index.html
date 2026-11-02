@@ -352,6 +352,7 @@ nav.bottom button.sel{color:var(--green-d);}
 <script src="data-bangla1.js"></script>
 <script src="data-biggan.js"></script>
 <script src="data-ict.js"></script>
+<script src="data-krishi.js"></script>
 
 
 <script>
@@ -406,6 +407,11 @@ for(let n=1; n<=6; n++){
   const ch = parseJSONObj('data-ict-ch'+n);
   if(ch){ ch.key = 'ict'+n; ch.examKey = 'ssc_exam_ict'+n; ch.division = 'সকল বিভাগ'; ICT_CHAPTERS.push(ch); }
 }
+const KRISHI_CHAPTERS = [];
+for(let n=1; n<=7; n++){
+  const ch = parseJSONObj('data-krishi-ch'+n);
+  if(ch){ ch.key = 'krishi'+n; ch.examKey = 'ssc_exam_krishi'+n; ch.division = 'সকল বিভাগ'; KRISHI_CHAPTERS.push(ch); }
+}
 const SUBJECTS = [
   { name:'পৌরনীতি ও নাগরিকতা', icon:'🏛️', chapters:POURONITI_CHAPTERS },
   { name:'বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা', icon:'📜', chapters:ITIHAS_CHAPTERS },
@@ -414,6 +420,7 @@ const SUBJECTS = [
   { name:'বাংলা ২য় পত্র', icon:'✍️', chapters:BANGLA2_CHAPTERS, countText:'৪৯টি পরিচ্ছেদ' },
   { name:'বিজ্ঞান', icon:'🔬', chapters:BIGGAN_CHAPTERS, countText:'১১টি অধ্যায় • ১,০০১ MCQ' },
   { name:'তথ্য ও যোগাযোগ প্রযুক্তি', icon:'💻', chapters:ICT_CHAPTERS, countText:'৬টি অধ্যায় • ৬৫০ MCQ' },
+  { name:'কৃষিশিক্ষা', icon:'🌾', chapters:KRISHI_CHAPTERS, countText:'৭টি অধ্যায় • ১,১৮২ MCQ' },
   { name:'ইসলাম শিক্ষা', icon:'🕌', chapters:ISLAM_CHAPTERS, countText:'৯১টি পাঠ • ৫টি অধ্যায়' }
 ];
 const ALL_CHAPTERS = SUBJECTS.reduce((a,s) => a.concat(s.chapters), []);
