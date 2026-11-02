@@ -349,6 +349,7 @@ nav.bottom button.sel{color:var(--green-d);}
 <script src="data-bhugol.js"></script>
 <script src="data-bangla2.js"></script>
 <script src="data-islam.js"></script>
+<script src="data-bangla1.js"></script>
 
 
 <script>
@@ -388,10 +389,16 @@ for(let n=1; n<=91; n++){
   const ch = parseJSONObj('data-islam-u'+n);
   if(ch){ ch.key = 'islam'+n; ch.examKey = 'ssc_exam_islam'+n; ch.unitLabel = 'পাঠ'; ch.division = 'সকল বিভাগ'; ISLAM_CHAPTERS.push(ch); }
 }
+const BANGLA1_CHAPTERS = [];
+for(let n=1; n<=32; n++){
+  const ch = parseJSONObj('data-bangla1-u'+n);
+  if(ch){ ch.key = 'bangla1'+n; ch.examKey = 'ssc_exam_bangla1'+n; ch.unitLabel = 'পাঠ্য'; ch.division = 'সকল বিভাগ'; BANGLA1_CHAPTERS.push(ch); }
+}
 const SUBJECTS = [
   { name:'পৌরনীতি ও নাগরিকতা', icon:'🏛️', chapters:POURONITI_CHAPTERS },
   { name:'বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা', icon:'📜', chapters:ITIHAS_CHAPTERS },
   { name:'ভূগোল ও পরিবেশ', icon:'🌍', chapters:BHUGOL_CHAPTERS },
+  { name:'বাংলা ১ম পত্র (সাহিত্য)', icon:'📖', chapters:BANGLA1_CHAPTERS, countText:'৩২টি পাঠ্য • গদ্য ১৫ + পদ্য ১৫ + সহপাঠ ২' },
   { name:'বাংলা ২য় পত্র', icon:'✍️', chapters:BANGLA2_CHAPTERS, countText:'৪৯টি পরিচ্ছেদ' },
   { name:'ইসলাম শিক্ষা', icon:'🕌', chapters:ISLAM_CHAPTERS, countText:'৯১টি পাঠ • ৫টি অধ্যায়' }
 ];
